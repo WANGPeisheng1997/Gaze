@@ -65,6 +65,8 @@ def dashboard_deploy(package_name):
     create_deployment(deployment)
     list_all_pods()
 
+    print("Deployment successful!")
+
     # print("Running the container ...")
     # container = client.containers.run(package_name, detach=True)
     # print("Container ID: " + container.short_id)

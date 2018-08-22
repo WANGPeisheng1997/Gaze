@@ -13,11 +13,20 @@ def list_all_pods():
         print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
 
 
+# def list_all_services():
+#     print("Listing all the services:")
+#     ret = v1.list_service_for_all_namespaces(watch=False)
+#     for i in ret.items:
+#         print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
+
+
 def create_deployment_object(package_name):
     # Configureate Pod template container
     container = client.V1Container(
         name=package_name,
         image="gazetest/" + package_name,
+        stdin=True,
+        tty=True,
         ports=[client.V1ContainerPort(container_port=5000)])
 
     # Create and configurate a spec section
@@ -47,4 +56,3 @@ def create_deployment(deployment):
         namespace="default")
     print("Deployment created. status='%s'" % str(api_response.status))
 
-list_all_pods()
