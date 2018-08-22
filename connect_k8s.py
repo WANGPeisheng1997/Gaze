@@ -5,6 +5,7 @@ config.load_kube_config(config_file=CURRENT_FOLDER + "/config")
 v1 = client.CoreV1Api()
 extensions_v1beta1 = client.ExtensionsV1beta1Api()
 
+
 def list_all_pods():
     print("Listing pods with their IPs:")
     ret = v1.list_pod_for_all_namespaces(watch=False)
@@ -17,7 +18,7 @@ def create_deployment_object(package_name):
     container = client.V1Container(
         name=package_name,
         image="gazetest/" + package_name,
-        ports=[client.V1ContainerPort(container_port=80)])
+        ports=[client.V1ContainerPort(container_port=5000)])
 
     # Create and configurate a spec section
     template = client.V1PodTemplateSpec(
@@ -45,3 +46,5 @@ def create_deployment(deployment):
         body=deployment,
         namespace="default")
     print("Deployment created. status='%s'" % str(api_response.status))
+
+list_all_pods()
